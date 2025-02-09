@@ -2,11 +2,13 @@ import { useState } from "react"
 import IngredientsList from "./IngredientsList"
 import ClaudeRecipe from "./ClaudeRecipe"
 import { getRecipeFromAI} from "../ai"
+import Loader from "./Loader"
 
 const Search = () => {
 
     const [ingredients, setIngredients] = useState([])
     const [recipe, setRecipe] = useState("");
+    const [isLoaded, setIsLoaded] = useState(false);
 
     function addIngredient(formData){
         const newIngredient = formData.get("ingredient")
@@ -14,8 +16,10 @@ const Search = () => {
     }
 
     async function getRecipe(){
+        setIsLoaded(true);
         const value = await getRecipeFromAI(ingredients)
         setRecipe(value)
+        setIsLoaded(false)
     }
 
   return (
@@ -25,7 +29,9 @@ const Search = () => {
             <button className="w-full sm:max-w-[180px] rounded-md bg-black text-white py-2 px-8 text-sm">+ Add ingredient</button>
         </form>
         {ingredients.length > 0 && <IngredientsList ingredients = {ingredients} getRecipe={getRecipe} />}
-        {recipe !== "" && <ClaudeRecipe recipe = {recipe} />}
+
+        {isLoaded && <Loader />}
+        {recipe && <ClaudeRecipe recipe = {recipe} />}
     </div>
   )
 }
