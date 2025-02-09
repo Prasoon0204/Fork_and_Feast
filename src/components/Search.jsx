@@ -7,8 +7,7 @@ import Loader from "./Loader"
 const Search = () => {
 
     const [ingredients, setIngredients] = useState([])
-    const [recipe, setRecipe] = useState("");
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [recipe, setRecipe] = useState("empty");
 
     function addIngredient(formData){
         const newIngredient = formData.get("ingredient")
@@ -16,10 +15,9 @@ const Search = () => {
     }
 
     async function getRecipe(){
-        setIsLoaded(true);
+        setRecipe("");
         const value = await getRecipeFromAI(ingredients)
         setRecipe(value)
-        setIsLoaded(false)
     }
 
   return (
@@ -30,8 +28,8 @@ const Search = () => {
         </form>
         {ingredients.length > 0 && <IngredientsList ingredients = {ingredients} getRecipe={getRecipe} />}
 
-        {isLoaded && <Loader />}
-        {recipe && <ClaudeRecipe recipe = {recipe} />}
+        {recipe === "" && <Loader />}
+        {recipe !== "empty" && recipe !== "" && <ClaudeRecipe recipe = {recipe} />}
     </div>
   )
 }
