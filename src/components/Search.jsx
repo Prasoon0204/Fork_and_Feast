@@ -1,6 +1,6 @@
 import { useState } from "react"
 import IngredientsList from "./IngredientsList"
-import ClaudeRecipe from "./ClaudeRecipe"
+import ForkAndFeastRecipe from "./ForkAndFeastRecipe"
 import { getRecipeFromAI} from "../ai"
 import Loader from "./Loader"
 
@@ -29,7 +29,7 @@ const Search = () => {
         {ingredients.length > 0 && <IngredientsList ingredients = {ingredients} getRecipe={getRecipe} />}
 
         {recipe === "" && <Loader />}
-        {recipe !== "empty" && recipe !== "" && <ClaudeRecipe recipe = {recipe} />}
+        {recipe !== "empty" && recipe !== "" && <ForkAndFeastRecipe recipe = {recipe} />}
     </div>
   )
 }
