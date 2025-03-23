@@ -2,7 +2,7 @@
 const IngredientsList = (props) => {
     const ingredientsListItems = props.ingredients.map((ingredient, i) => (
         <li className="list-disc text-gray-500 pb-4" key={i}>
-            <div className="flex gap-8 justify-between w-[18%]">
+            <div className="flex gap-8 justify-between w-[240px]">
                 <p>{ingredient}</p>
                 <button onClick={() => props.delete(i)}>❎</button>
             </div>
