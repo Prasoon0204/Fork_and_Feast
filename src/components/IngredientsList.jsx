@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 const IngredientsList = (props) => {
     const ingredientsListItems = props.ingredients.map((ingredient, i) => (
-        <li className="list-disc text-gray-500 pb-4" key={i}>{ingredient}</li>
+        <li className="list-disc text-gray-500 pb-4" key={i}>
+            <div className="flex gap-8 justify-between w-[18%]">
+                <p>{ingredient}</p>
+                <button onClick={() => props.delete(i)}>❎</button>
+            </div>
+        </li>
     ))
   return (
     <section className="flex flex-col">

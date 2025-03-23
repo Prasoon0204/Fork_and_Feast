@@ -20,13 +20,18 @@ const Search = () => {
         setRecipe(value)
     }
 
+    function handleDelete(idx){
+        setIngredients(ingredients.filter((_,i) => i !== idx));
+    }
+
   return (
     <div className="p-8 pb-0">
         <form action={addIngredient} className="sm:flex justify-center gap-4 mb-4 mx-4">
             <input className="rounded-md w-full sm:max-w-[400px] mb-2 sm:mb-0 flex-grow border-2 border-gray-200 px-4" type="text" placeholder="e.g. oregano" name="ingredient" />
             <button className="w-full sm:max-w-[180px] rounded-md bg-black text-white py-2 px-8 text-sm">+ Add ingredient</button>
         </form>
-        {ingredients.length > 0 && <IngredientsList ingredients = {ingredients} getRecipe={getRecipe} />}
+        {ingredients.length < 4 && <p className="text-red-600 text-sm text-center mb-4">*Add atleast 4 ingredients to generate a recipe*</p>}
+        {ingredients.length > 0 && <IngredientsList ingredients = {ingredients} getRecipe={getRecipe} delete={handleDelete} />}
 
         {recipe === "" && <Loader />}
         {recipe !== "empty" && recipe !== "" && <ForkAndFeastRecipe recipe = {recipe} />}
